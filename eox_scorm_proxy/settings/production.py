@@ -20,7 +20,7 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
         else:
             domain = settings.CMS_BASE
 
-        bucket_host = f"s3.{settings.EOX_SCORM_PROXY_AWS_REGION}.amazonaws.com"
+        bucket_host = f"s3.us-west-2.amazonaws.com"
 
         return S3BotoStorage(
             bucket=settings.AWS_STORAGE_BUCKET_NAME,
