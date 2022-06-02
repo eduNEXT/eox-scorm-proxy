@@ -22,7 +22,7 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
         bucket_host = "s3.us-west-2.amazonaws.com"
         
         return S3BotoStorage(
-            bucket=getattr(settings, 'EOX_SCORM_PROXY_AWS_STORAGE_BUCKET_NAME', 'scorm-xblock-test'),
+            bucket=getattr(settings, 'EOX_SCORM_PROXY_AWS_STORAGE_BUCKET_NAME', settings.AWS_STORAGE_BUCKET_NAME),
             access_key=getattr(settings, 'EOX_SCORM_PROXY_QUERYSTRING_EXPIRE', settings.AWS_ACCESS_KEY_ID),
             secret_key=getattr(settings, 'EOX_SCORM_PROXY_QUERYSTRING_EXPIRE', settings.AWS_SECRET_ACCESS_KEY),
             host=getattr(settings, 'EOX_SCORM_PROXY_HOST', bucket_host),
