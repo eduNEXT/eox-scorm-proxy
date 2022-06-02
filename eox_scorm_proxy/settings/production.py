@@ -10,16 +10,25 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
     More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
     """
 
-    from storages.backends.s3boto import S3BotoStorage
+    
     def scorm_xblock_storage(xblock):
         from django.conf import settings
+        from storages.backends.s3boto import S3BotoStorage
+
+        if settings.SERVICE_VARIANT == "lms":
+            domain = settings.LMS_BASE
+        else:
+            domain = settings.CMS_BASE
+
+        bucket_host = f"s3.{settings.EOX_SCORM_PROXY_AWS_REGION}.amazonaws.com"
+
         return S3BotoStorage(
             bucket=settings.AWS_STORAGE_BUCKET_NAME,
             access_key=settings.AWS_ACCESS_KEY_ID,
             secret_key=settings.AWS_SECRET_ACCESS_KEY,
-            host="s3.eu-west-1.amazonaws.com",
+            host=bucket_host,
             querystring_expire=86400,
-            custom_domain= settings.CMS_BASE + '/scorm-xblock'
+            custom_domain=f"{domain}/scorm-proxy"
         )
 
     settings.XBLOCK_SETTINGS["ScormXBlock"] = {
