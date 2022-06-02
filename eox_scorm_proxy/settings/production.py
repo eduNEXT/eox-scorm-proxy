@@ -12,8 +12,11 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
 
     
     def scorm_xblock_storage(xblock):
+        import logging
         from django.conf import settings
         from storages.backends.s3boto import S3BotoStorage
+
+        log = logging.getLogger(__name__)
 
         if settings.SERVICE_VARIANT == "lms":
             domain = settings.LMS_BASE
@@ -21,7 +24,7 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
             domain = settings.CMS_BASE
 
         bucket_host = f"s3.us-west-2.amazonaws.com"
-        print('=========================================!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!HOLA:)')
+        log.warning('=========================================!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!HOLA:)')
         return S3BotoStorage(
             bucket=settings.AWS_STORAGE_BUCKET_NAME,
             access_key=settings.AWS_ACCESS_KEY_ID,
