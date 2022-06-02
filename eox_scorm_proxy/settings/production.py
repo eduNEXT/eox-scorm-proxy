@@ -28,7 +28,7 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
             secret_key=settings.AWS_SECRET_ACCESS_KEY,
             host=bucket_host,
             querystring_expire=86400,
-            custom_domain=f"{domain}/scorm-proxy"
+            custom_domain=f"{domain}/nginx-scorm-proxy"
         )
 
     settings.XBLOCK_SETTINGS["ScormXBlock"] = {
