@@ -20,11 +20,11 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
             domain = tenant_settings.CMS_BASE
 
         bucket_host = "s3.us-west-2.amazonaws.com"
-
+        
         return S3BotoStorage(
-            bucket=settings.AWS_STORAGE_BUCKET_NAME,
-            access_key=settings.AWS_ACCESS_KEY_ID,
-            secret_key=settings.AWS_SECRET_ACCESS_KEY,
+            bucket=getattr(settings, 'EOX_SCORM_PROXY_AWS_STORAGE_BUCKET_NAME', 'scorm-xblock-test'),
+            access_key=getattr(settings, 'EOX_SCORM_PROXY_QUERYSTRING_EXPIRE', settings.AWS_ACCESS_KEY_ID),
+            secret_key=getattr(settings, 'EOX_SCORM_PROXY_QUERYSTRING_EXPIRE', settings.AWS_SECRET_ACCESS_KEY),
             host=getattr(settings, 'EOX_SCORM_PROXY_HOST', bucket_host),
             querystring_expire=getattr(settings, 'EOX_SCORM_PROXY_QUERYSTRING_EXPIRE', 86400),
             custom_domain=f"{domain}/nginx-scorm-proxy"
